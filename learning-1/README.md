@@ -1,31 +1,60 @@
 ### Creating EC2 instance
 
-Summary:
-Creating EC2 Instance
-Creating VPC
-Creating Subnet in VPC
-Creating Internet Gateway in VPC
-Creating Route Table in VPC
-Adding entry in route table to allow internet access for ec2 instance
-Associate route table with subnet
-Creating Network Interface in subnet
-Creating security group and adding to network interface
-Creating Elastic IP
-Printing Elastic IP
+We have just created a simple EC2 instance which will have an access to internet.
 
+In this learning, we have created new vpc, subnets and other resources for ec2 instance, instead of using default resources created by aws.
 
-1) AMI and Instance type is mandatory
+Below are the resources created newly,
 
-    By default there will be 1 default vpc and 3 subnets on the default vpc.
-    Also there will be 1 default internet gateway attached to default vpc for internet access.
-    And there will be 1 default route table associated with above mentioned 3 subnets.
-    Route table will be available in vpc and by default will have an entry to allow internet access.
-    NCL(security group at subnet level) attached to subnets, by default will allow all requests.
+* EC2 Instance
+* VPC
+* Subnet
+* NACL
+* Internet Gateway
+* Route Table
+* Security group
+* Network Interface
+* Elastic IP
 
-2) If we don't want to use default vpc, then we have to create below resources
-    1) VPC - specify address range
-    2) Subnet - specify address range (subset of vpc address range)
-    3) Internet Gateway - attach to vpc to get internet access for the vpc
-    4) Route table - Create route table in vpc and associate with the subnets and add a entry to allow internet access for the ec2 instances in the subnet
-    5) Security group - attach with eni (Security group for instance level, only allow rules can be added)
-    6) NCL -  Create NCL in vpc and attach with subnet (Security group for subnet level, we can add allow and deny rule. By default, all requests are allowed)
+#### EC2 Instance:
+Specify AMI ID and Instance type
+
+#### VPC:
+Specify CIDR block
+
+#### Subnet:
+Specify VPC ID, CIDR block, availability zone
+
+#### NACL:
+NACL is a security layer for subnet.
+Add required rules and associate it with subnet.
+Here we can add both allow and deny rules. It is stateless.
+
+#### Internet Gateway:
+Internet Gateway provides the internet access to the instance.
+It should be used in route table entry and associate route table with the subnet.
+Doing so will provide the internet access to the instances in that subnet.
+
+#### Route Table:
+Contains enries to route the traffic.
+Associate route table with the subnet.
+
+#### Security Group:
+Security group is the security layer at the ec2 instance level.
+It will be connected with network interface.
+We can add only allow rules and it is stateful.
+
+#### Network Interface:
+Network Interface will be attached to the ec2 instance.
+
+#### Elastic IP:
+Specify EC2 instance id
+
+## Learning-1 Explained:
+* Here we have created 1 VPC and added 1 Subnet, 1 Route Table, 1 NACL, 1 Internet Gateway, 1 Security group under it.
+* Added required entries to route table and associated it with subnet.
+* Added required rules to NACL and associated it with subnet.
+* Added required rules to security groups and attached with network interface.
+* Attach network interface with subnet.
+* Created EC2 instance will be in the subnet.
+* Elastic IP will be associated with the EC2 instance.
