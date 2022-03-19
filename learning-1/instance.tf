@@ -73,6 +73,33 @@ resource "aws_eip" "ip" {
   vpc      = true
 }
 
+resource "aws_network_acl" "nacl" {
+  vpc_id = aws_vpc.vpc.id
+
+  egress {
+    protocol   = -1
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+
+  ingress {
+    protocol   = -1
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+}
+
+resource "aws_network_acl_association" "nacl" {
+  network_acl_id = aws_network_acl.nacl.id
+  subnet_id      = aws_subnet.subnet.id
+}
+
 output "ec2_ip" {
   value = aws_eip.ip.address
 }
