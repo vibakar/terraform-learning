@@ -24,12 +24,8 @@ resource "aws_subnet" "example" {
   availability_zone = "eu-west-2a"
 }
 
-resource "aws_internet_gateway" "example" {
-  vpc_id = aws_vpc.example.id
-}
-
-resource "aws_route_table" "example" {
-  vpc_id = aws_vpc.example.id
+resource "aws_default_route_table" "example" {
+  default_route_table_id = aws_vpc.example.default_route_table_id
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -37,20 +33,39 @@ resource "aws_route_table" "example" {
   }
 }
 
+resource "aws_internet_gateway" "example" {
+  vpc_id = aws_vpc.example.id
+}
+
 resource "aws_route_table_association" "example" {
   subnet_id      = aws_subnet.example.id
-  route_table_id = aws_route_table.example.id
+  route_table_id = aws_default_route_table.example.id
 }
 
-resource "aws_network_interface" "example" {
-  subnet_id       = aws_subnet.example.id
-  security_groups = [aws_security_group.example.id]
+resource "aws_default_network_acl" "example" {
+  default_network_acl_id = aws_vpc.example.default_network_acl_id
+
+  egress {
+    protocol   = -1
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+
+  ingress {
+    protocol   = -1
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
 }
 
-resource "aws_security_group" "example" {
-  name        = "sg"
-  description = "Security group for subnet"
-  vpc_id      = aws_vpc.example.id
+resource "aws_default_security_group" "example" {
+  vpc_id = aws_vpc.example.id
 
   ingress {
     description = "Allow SSH"
@@ -68,38 +83,16 @@ resource "aws_security_group" "example" {
   }
 }
 
+resource "aws_network_interface" "example" {
+  subnet_id       = aws_subnet.example.id
+  security_groups = [aws_default_security_group.example.id]
+}
+
 resource "aws_eip" "example" {
   instance = aws_instance.example.id
   vpc      = true
 }
 
-resource "aws_network_acl" "example" {
-  vpc_id = aws_vpc.example.id
-
-  egress {
-    protocol   = -1
-    rule_no    = 100
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 0
-    to_port    = 0
-  }
-
-  ingress {
-    protocol   = -1
-    rule_no    = 100
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 0
-    to_port    = 0
-  }
-}
-
-resource "aws_network_acl_association" "example" {
-  network_acl_id = aws_network_acl.example.id
-  subnet_id      = aws_subnet.example.id
-}
-
-output "ec2_ip" {
+output "ip" {
   value = aws_eip.example.public_ip
 }

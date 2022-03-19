@@ -1,2 +1,2 @@
-learning-1/terraform.tfvars
-learning-1/.terraform/
+learning**/terraform.tfvars
+learning**/.terraform/
