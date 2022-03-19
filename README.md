@@ -9,6 +9,7 @@ learning-2 | Creating EC2 Instance and using default security group of default V
 learning-3 | Creating EC2 Instance and VPC and using default resources in created VPC
 learning-4 | Creating EC2 Instance and new VPC, Subnet, NACL, Route Table etc..
 learning-5 | Creating EC2 Instance and using provisioner to execute script in local
+learning-6 | Creating EC2 Instance and using provisioner to execute script in remote
 
 #### Steps to run each learnings
 * Clone this repo
