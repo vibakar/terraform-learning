@@ -1,11 +1,11 @@
 resource "aws_key_pair" "example" {
   key_name   = "mykey1"
-  public_key = file("~/.ssh/id_rsa.pub")
+  public_key = file(var.KEY_PATH["public"])
 }
 
 resource "aws_instance" "example" {
-  ami           = "ami-03e88be9ecff64781"
-  instance_type = "t2.micro"
+  ami           = var.AMIS[var.AWS_REGION]
+  instance_type = var.INSTANCE_TYPE
   key_name      = aws_key_pair.example.key_name
 
   provisioner "file" {
@@ -24,38 +24,10 @@ resource "aws_instance" "example" {
     host        = self.public_ip
     type        = "ssh"
     user        = "ec2-user"
-    private_key = file("~/.ssh/id_rsa")
-  }
-}
-
-resource "aws_default_vpc" "example" {
-}
-
-resource "aws_default_security_group" "example" {
-  vpc_id = aws_default_vpc.example.id
-
-  ingress {
-    description = "Allow SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "TCP"
-    cidr_blocks = ["0.0.0.0/0"]
+    private_key = file(var.KEY_PATH["private"])
   }
 
-  ingress {
-    description = "Allow TCP"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "TCP"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  tags = { for k, v in var.TAGS : k => lower(v) }
 }
 
 output "ip" {

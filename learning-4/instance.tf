@@ -1,6 +1,6 @@
 resource "aws_key_pair" "example" {
   key_name   = "mykey1"
-  public_key = file(var.PRIVATE_KEY_PATH)
+  public_key = file(var.KEY_PATH["public"])
 }
 
 resource "aws_instance" "example" {
@@ -12,6 +12,8 @@ resource "aws_instance" "example" {
     network_interface_id = aws_network_interface.example.id
     device_index         = 0
   }
+
+  tags = { for k, v in var.TAGS : k => lower(v) }
 }
 
 resource "aws_network_interface" "example" {
@@ -22,6 +24,8 @@ resource "aws_network_interface" "example" {
 resource "aws_eip" "example" {
   instance = aws_instance.example.id
   vpc      = true
+
+  tags = { for k, v in var.TAGS : k => lower(v) }
 }
 
 output "ec2_ip" {

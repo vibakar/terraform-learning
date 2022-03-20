@@ -8,8 +8,12 @@ variable "AWS_REGION" {
   default = "eu-west-2"
 }
 
-variable "PRIVATE_KEY_PATH" {
-  default = "~/.ssh/id_rsa.pub"
+variable "KEY_PATH" {
+  type = map(string)
+  default = {
+    public = "~/.ssh/id_rsa.pub"
+    private = "~/.ssh/id_rsa"
+  }
 }
 
 variable "AMIS" {

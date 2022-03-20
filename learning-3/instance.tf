@@ -1,6 +1,6 @@
 resource "aws_key_pair" "example" {
   key_name   = "mykey1"
-  public_key = file(var.PRIVATE_KEY_PATH)
+  public_key = file(var.KEY_PATH["private"])
 
   tags = { for k, v in var.TAGS : k => lower(v) }
 }
