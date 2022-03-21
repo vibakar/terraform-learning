@@ -14,6 +14,7 @@ learning-6 | Creating EC2 Instance and using provisioner to execute script in re
 #### Steps to run each learnings
 * Clone this repo
 * cd to the respective learning folder
+* Add terrform.tfvars file and add AWS_ACCESS_KEY and AWS_SECRET_KEY variables
 * run `terraform init` (It will initialize a working directory containing Terraform configuration files)
 * run `terraform apply` (It will create the resources)
 * run `terraform destroy` (It will delete the resources)

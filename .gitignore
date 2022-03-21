@@ -1,2 +1,5 @@
 learning**/terraform.tfvars
 learning**/.terraform/
+learning**/*.hcl
+learning**/*.tfstate
+learning**/*.tfstate.backup
