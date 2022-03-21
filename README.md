@@ -11,6 +11,7 @@ learning-4 | Creating EC2 Instance and new VPC, Subnet, NACL, Route Table etc..
 learning-5 | using provisioner to execute script in local
 learning-6 | using provisioner to execute script in remote
 learning-7 | Using modules
+learning-8 | Data Source
 
 #### Steps to run each learnings
 * Clone this repo
