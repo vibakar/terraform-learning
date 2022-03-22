@@ -13,6 +13,7 @@ learning-6 | using provisioner to execute script in remote
 learning-7 | Using modules
 learning-8 | Data Source
 learning-9 | Attaching EBS volume with EC2 instance. Used Data source and Cloud Init as well
+learning-10| Storing terraform state in S3
 
 #### Steps to run each learnings
 * Clone this repo
