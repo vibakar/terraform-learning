@@ -8,8 +8,8 @@ learning-1 | Creating only EC2 Instance
 learning-2 | Creating EC2 Instance and using default security group of default VPC
 learning-3 | Creating EC2 Instance and VPC and using default resources in created VPC
 learning-4 | Creating EC2 Instance and new VPC, Subnet, NACL, Route Table etc..
-learning-5 | using provisioner to execute script in local
-learning-6 | using provisioner to execute script in remote
+learning-5 | Using provisioner to execute script in local
+learning-6 | Using provisioner to execute script in remote
 learning-7 | Using modules
 learning-8 | Data Source
 learning-9 | Attaching EBS volume with EC2 instance. Used Data source and Cloud Init as well
