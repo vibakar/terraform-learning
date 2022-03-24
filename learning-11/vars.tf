@@ -9,7 +9,7 @@ variable "AWS_REGION" {
 }
 
 variable "AMI" {
-  type = string
+  type    = string
   default = "ami-03e88be9ecff64781"
 }
 
@@ -62,6 +62,13 @@ variable "SG_RULES_INGRESS" {
       cidr_blocks = "0.0.0.0/0"
       protocol    = "TCP"
       description = "Allow port 3000"
+    },
+    {
+      from_port   = 80
+      to_port     = 80
+      cidr_blocks = "0.0.0.0/0"
+      protocol    = "TCP"
+      description = "Allow port 80"
     }
   ]
 }
@@ -132,4 +139,14 @@ variable "TAGS" {
   default = {
     name = "learning"
   }
+}
+
+variable "ROOT_DOMAIN" {
+  type = string
+  default = "devopscloudgeek.com"
+}
+
+variable "APPLICATION_DOMAIN" {
+  type = string
+  default = "bs-fed.devopscloudgeek.com"
 }
