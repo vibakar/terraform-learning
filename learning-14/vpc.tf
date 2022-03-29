@@ -57,6 +57,30 @@ resource "aws_route_table_association" "private" {
   route_table_id = element(aws_route_table.private_route_table.*.id, count.index)
 }
 
+resource "aws_default_security_group" "sg" {
+  vpc_id = aws_vpc.vpc.id
+
+  dynamic "ingress" {
+    for_each = var.SG_RULES_INGRESS
+    content {
+      from_port   = ingress.value["from_port"]
+      to_port     = ingress.value["to_port"]
+      cidr_blocks = split(",", ingress.value["cidr_blocks"])
+      protocol    = ingress.value["protocol"]
+    }
+  }
+
+  dynamic "egress" {
+    for_each = var.SG_RULES_EGRESS
+    content {
+      from_port   = egress.value["from_port"]
+      to_port     = egress.value["to_port"]
+      cidr_blocks = split(",", egress.value["cidr_blocks"])
+      protocol    = egress.value["protocol"]
+    }
+  }
+}
+
 output "availability_zones" {
   value = data.aws_availability_zones.az.names
 }
