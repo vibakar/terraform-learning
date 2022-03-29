@@ -17,6 +17,7 @@ learning-10| Storing terraform state in S3
 learning-11| Deploying application as docker image in EC2 instance and adding record in Rout53
 learning-12| Creating Auto Scaling Group(ASG), Launch Template(LT), Application Load Balancer(ALB), Route53 Record, Deploying application
 learning-13| Deploying application on Amazon managed ECS cluster(Fargate).
+learning-14| Creating public and private subnets and enabling the internet access.
 
 #### Steps to run each learnings
 * Clone this repo
