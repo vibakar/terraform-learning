@@ -1,0 +1,30 @@
+AWS:
+
+VPC:
+By default aws provided one vpc in every region.
+This default vpc will have 
+    3 Subnets (Depends on Availability Zone of that region)
+    1 Security Group
+    1 NACL (Associated with all subnets)
+    1 Route table (Associated with all subnets) (Route table will also have an entry to provide internet access to subnets)
+    1 Internet Gateway
+
+When new VPC is created, below resources will be created by default
+    1 Security Group
+    1 NACL
+    1 Route Table
+If any new subnet is created and no route table is associated to the newly created subnet explicitly, then the subnet will have main route table as default route table.
+
+1 VPC can have only 1 Internet Gateway
+
+
+NAT Gateway: 
+It is used to provide internet access to ec2 instances in the private subnet.
+
+Inorder to provide internt access to ec2 instances in private subnet, follow the steps below
+    Create NAT Gateway in the public subnet.
+    Create a route table and associate it to the private subnet.
+    Route table should have an entry to forward internet requests to NAT gateway.
+
+We can have more than 1 NAT Gateway for high availability. 1 NAT gateway in each availability zone.
+
